@@ -7,17 +7,17 @@ export function BottomHeader() {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", "bottom-header"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("advertisements" as any)
-        .select("*")
-        .eq("placement", "bottom-header")
-        .eq("is_active", true)
-        .order("display_order", { ascending: true })
-        .limit(1);
+      const { data, error } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("placement", "bottom-header").
+      eq("is_active", true).
+      order("display_order", { ascending: true }).
+      limit(1);
 
       if (error) throw error;
       return data;
-    },
+    }
   });
 
   const ad: any = ads?.[0];
@@ -36,16 +36,16 @@ export function BottomHeader() {
                 href="https://t.me/ceo_metaverse"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
-              >
+                className="inline-flex items-center gap-2">
+
                 <ExternalLink className="h-4 w-4" />
                 Advertise with us
               </a>
             </Button>
           </div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -55,32 +55,32 @@ export function BottomHeader() {
           href={ad.target_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block relative overflow-hidden group"
-        >
+          className="block relative overflow-hidden group">
+
           {/* Media content */}
           <div className="relative rounded overflow-hidden">
-            {ad.media_type === "video" ? (
-              <video
-                src={ad.image_url}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
-                preload="auto"
-              >
+            {ad.media_type === "video" ?
+            <video
+              src={ad.image_url}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
+              preload="auto">
+
                 Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                src={ad.image_url}
-                alt={ad.title || "Advertisement"}
-                className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-            )}
+              </video> :
+
+            <img
+              src={ad.image_url}
+              alt={ad.title || "Advertisement"}
+              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105" />
+
+            }
           </div>
         </a>
       </div>
-    </div>
-  );
+    </div>);
+
 }

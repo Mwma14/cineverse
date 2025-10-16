@@ -26,8 +26,8 @@ const App = () => {
           <AppContent />
         </BrowserRouter>
       </TooltipProvider>
-    </QueryClientProvider>
-  );
+    </QueryClientProvider>);
+
 };
 
 function AppContent() {
@@ -51,8 +51,8 @@ function AppContent() {
         </Routes>
       </div>
       <StickyAd />
-    </>
-  );
+    </>);
+
 }
 
 
