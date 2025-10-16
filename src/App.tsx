@@ -11,7 +11,6 @@ import Contact from "./pages/Contact";
 import Policy from "./pages/Policy";
 import NotFound from "./pages/NotFound";
 import { StickyAd } from "./components/StickyAd";
-import { BottomHeader } from "./components/BottomHeader";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
@@ -38,8 +37,6 @@ function AppContent() {
 
   return (
     <>
-      {/* Don't show bottom header in admin panel or when mobile menu is open */}
-      {!isAdminPage && !isMobileMenuOpen && <BottomHeader />}
       <div className="pb-28">
         <Routes>
           <Route path="/" element={<Index onMobileMenuChange={setIsMobileMenuOpen} />} />
