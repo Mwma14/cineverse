@@ -1,9 +1,13 @@
 import { Header } from "@/components/Header";
 
-const Contact = () => {
+interface ContactProps {
+  onMobileMenuChange?: (isOpen: boolean) => void;
+}
+
+const Contact = ({ onMobileMenuChange }: ContactProps = {}) => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header onMobileMenuChange={onMobileMenuChange} />
       <main className="container py-8">
         <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
         <div className="prose prose-invert max-w-none">

@@ -2,14 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Film, Settings, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const ADMIN_EMAIL = "thewayofthedragg@gmail.com";
 
-export const Header = () => {
+interface HeaderProps {
+  onMobileMenuChange?: (isOpen: boolean) => void;
+}
+
+export const Header = ({ onMobileMenuChange }: HeaderProps = {}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileSearchQuery, setMobileSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +28,10 @@ export const Header = () => {
   });
 
   const isAdmin = session?.user?.email === ADMIN_EMAIL;
+
+  useEffect(() => {
+    onMobileMenuChange?.(isOpen);
+  }, [isOpen, onMobileMenuChange]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

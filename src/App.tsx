@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import { StickyAd } from "./components/StickyAd";
 import { BottomHeader } from "./components/BottomHeader";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -33,19 +34,20 @@ const App = () => {
 function AppContent() {
   const location = useLocation();
   const isAdminPage = location.pathname === "/admin";
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
-      {/* Don't show bottom header in admin panel */}
-      {!isAdminPage && <BottomHeader />}
+      {/* Don't show bottom header in admin panel or when mobile menu is open */}
+      {!isAdminPage && !isMobileMenuOpen && <BottomHeader />}
       <div className="pb-28">
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/video/:id" element={<VideoDetail />} />
+          <Route path="/" element={<Index onMobileMenuChange={setIsMobileMenuOpen} />} />
+          <Route path="/video/:id" element={<VideoDetail onMobileMenuChange={setIsMobileMenuOpen} />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/policy" element={<Policy />} />
+          <Route path="/contact" element={<Contact onMobileMenuChange={setIsMobileMenuOpen} />} />
+          <Route path="/policy" element={<Policy onMobileMenuChange={setIsMobileMenuOpen} />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -9,7 +9,11 @@ import { ArrowLeft, Star, Calendar, Clock, Film, Download } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Advertisement } from "@/components/Advertisement";
 
-export default function VideoDetail() {
+interface VideoDetailProps {
+  onMobileMenuChange?: (isOpen: boolean) => void;
+}
+
+export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {}) {
   const { id } = useParams();
 
   const { data: video, isLoading } = useQuery({
@@ -57,7 +61,7 @@ export default function VideoDetail() {
   if (isLoading) {
     return (
       <div className="min-h-screen">
-        <Header />
+        <Header onMobileMenuChange={onMobileMenuChange} />
         <div className="container py-8">
           <div className="animate-pulse">
             <div className="h-96 bg-secondary rounded-lg mb-6" />
@@ -72,7 +76,7 @@ export default function VideoDetail() {
   if (!video) {
     return (
       <div className="min-h-screen">
-        <Header />
+        <Header onMobileMenuChange={onMobileMenuChange} />
         <div className="container py-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Video not found</h2>
           <Button asChild>
@@ -85,7 +89,7 @@ export default function VideoDetail() {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <Header onMobileMenuChange={onMobileMenuChange} />
 
       {/* Hero Section */}
       <div className="relative md:h-[500px] overflow-visible">

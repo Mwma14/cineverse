@@ -12,7 +12,11 @@ import { useState } from "react";
 
 const ITEMS_PER_PAGE = 20;
 
-const Index = () => {
+interface IndexProps {
+  onMobileMenuChange?: (isOpen: boolean) => void;
+}
+
+const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
   const filter = searchParams.get("filter"); // 'movies', 'series', or null for all
@@ -137,7 +141,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <Header onMobileMenuChange={onMobileMenuChange} />
 
       {/* Hero Ad */}
       <div className="container py-4">
