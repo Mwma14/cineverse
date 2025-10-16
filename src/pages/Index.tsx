@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
-import { Advertisement } from "@/components/Advertisement";
+
 import { useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -138,11 +138,6 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
-
-      {/* Hero Ad */}
-      <div className="container py-4">
-        <Advertisement placement="hero" />
-      </div>
 
       {/* Main Content */}
       <section className="container py-12 space-y-12">
@@ -332,9 +327,6 @@ const Index = () => {
           </> :
 
         <>
-            {/* Sidebar Ad */}
-            <Advertisement placement="sidebar" />
-
             {/* Trending Movies */}
             {trendingMovies.length > 0 &&
           <div>
@@ -372,13 +364,6 @@ const Index = () => {
               )}
                   </div>
             }
-              </div>
-          }
-
-            {/* Ad After Trending Movies */}
-            {trendingMovies.length > 0 &&
-          <div className="py-4">
-                <Advertisement placement="after-trending-movies" />
               </div>
           }
 
@@ -424,13 +409,6 @@ const Index = () => {
               </div>
           }
 
-            {/* Ad After Trending Series */}
-            {trendingSeries.length > 0 &&
-          <div className="py-4">
-                <Advertisement placement="after-trending-series" />
-              </div>
-          }
-
             {/* All Movies Section */}
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -471,11 +449,6 @@ const Index = () => {
                   <p className="text-muted-foreground">No movies available</p>
                 </div>
             }
-            </div>
-
-            {/* Ad After Movies */}
-            <div className="py-4">
-              <Advertisement placement="after-movies" />
             </div>
 
             {/* All Series Section */}
@@ -522,10 +495,7 @@ const Index = () => {
             }
             </div>
 
-            {/* Ad After Series */}
-            <div className="py-4">
-              <Advertisement placement="after-series" />
-            </div>
+
           </>
         }
       </section>
