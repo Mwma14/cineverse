@@ -7,13 +7,13 @@ export function BottomHeader() {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", "bottom_header"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("advertisements" as any)
-        .select("*")
-        .eq("placement", "bottom_header")
-        .eq("is_active", true)
-        .order("display_order", { ascending: true })
-        .limit(1);
+      const { data, error } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("placement", "bottom_header").
+      eq("is_active", true).
+      order("display_order", { ascending: true }).
+      limit(1);
 
       if (error) throw error;
       return data;

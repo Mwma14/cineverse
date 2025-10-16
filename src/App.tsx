@@ -50,7 +50,8 @@ function AppContent() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <StickyAd />
+      {/* Don't show sticky ad in admin panel */}
+      {!isAdminPage && <StickyAd />}
     </>);
 
 }
