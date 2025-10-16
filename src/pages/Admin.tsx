@@ -628,7 +628,8 @@ function AdForm({ ad, onClose }: {ad?: any;onClose: () => void;}) {
   { value: "after-movies", label: "Under Movie" },
   { value: "after-series", label: "Under Series" },
   { value: "footer", label: "Footer" },
-  { value: "bottom-header", label: "Bottom Header" }];
+  { value: "sticky", label: "Sticky Bottom Ad" },
+  { value: "bottom_header", label: "Bottom Header" }];
 
 
   return (
