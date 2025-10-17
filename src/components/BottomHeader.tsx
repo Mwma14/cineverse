@@ -55,10 +55,10 @@ export function BottomHeader() {
           href={ad.target_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block relative overflow-hidden group">
+          className="block relative overflow-hidden rounded-lg group mx-2 sm:mx-4">
 
           {/* Media content */}
-          <div className="relative rounded overflow-hidden">
+          <div className="relative rounded-lg overflow-hidden">
             {ad.media_type === "video" ?
             <video
               src={ad.image_url}
