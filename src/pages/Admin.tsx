@@ -629,6 +629,7 @@ function AdForm({ ad, onClose }: {ad?: any;onClose: () => void;}) {
   { value: "header", label: "Header" },
   { value: "hero", label: "Hero Section" },
   { value: "sidebar", label: "Sidebar" },
+  { value: "desktop_sidebar", label: "Desktop Sidebar" },
   { value: "video-top", label: "Video Detail - Top" },
   { value: "video-bottom", label: "Video Detail - Bottom" },
   { value: "download-section", label: "Download Section" },
