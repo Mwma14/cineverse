@@ -94,7 +94,6 @@ export default function Admin() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminAdvertisements"] });
       queryClient.invalidateQueries({ queryKey: ["advertisements"] });
-      queryClient.invalidateQueries({ queryKey: ["sidebarAd"] });
       toast.success("Advertisement deleted successfully");
     },
     onError: () => {
@@ -611,7 +610,6 @@ function AdForm({ ad, onClose }: {ad?: any;onClose: () => void;}) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminAdvertisements"] });
       queryClient.invalidateQueries({ queryKey: ["advertisements"] });
-      queryClient.invalidateQueries({ queryKey: ["sidebarAd"] });
       toast.success(ad ? "Advertisement updated!" : "Advertisement added!");
       onClose();
     },
@@ -629,7 +627,6 @@ function AdForm({ ad, onClose }: {ad?: any;onClose: () => void;}) {
   { value: "header", label: "Header" },
   { value: "hero", label: "Hero Section" },
   { value: "sidebar", label: "Sidebar" },
-  { value: "desktop_sidebar", label: "Desktop Sidebar" },
   { value: "video-top", label: "Video Detail - Top" },
   { value: "video-bottom", label: "Video Detail - Bottom" },
   { value: "download-section", label: "Download Section" },

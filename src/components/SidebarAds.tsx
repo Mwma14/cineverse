@@ -7,44 +7,33 @@ export function SidebarAds() {
   const { data: ad } = useQuery({
     queryKey: ["sidebarAd"],
     queryFn: async () => {
-      // First, try to get desktop_sidebar ad
-      const { data: desktopAd, error: desktopError } = await supabase.
-      from("advertisements" as any).
+      // First try to get from sidebar_ads table (Desktop Sidebar Ads section)
+      const { data: sidebarAd, error: sidebarError } = await supabase.
+      from("sidebar_ads" as any).
       select("*").
       eq("is_active", true).
-      eq("placement", "desktop_sidebar").
       order("display_order", { ascending: true }).
       limit(1).
-      maybeSingle();
+      single();
 
-      if (desktopError && desktopError.code !== 'PGRST116') {
-        throw desktopError;
-      }
+      if (sidebarAd) return sidebarAd;
 
-      // If desktop_sidebar ad exists, return it
-      if (desktopAd) {
-        return desktopAd;
-      }
-
-      // Otherwise, fallback to sidebar ad
-      const { data: sidebarAd, error: sidebarError } = await supabase.
+      // If no sidebar_ads, try advertisements table with placement="sidebar"
+      const { data: advertisementAd, error: adError } = await supabase.
       from("advertisements" as any).
       select("*").
       eq("is_active", true).
       eq("placement", "sidebar").
       order("display_order", { ascending: true }).
       limit(1).
-      maybeSingle();
+      single();
 
-      if (sidebarError && sidebarError.code !== 'PGRST116') {
-        throw sidebarError;
+      if (adError && adError.code !== 'PGRST116') {
+        throw adError;
       }
 
-      return sidebarAd || null;
-    },
-    staleTime: 0,
-    refetchOnWindowFocus: true,
-    refetchOnMount: true
+      return advertisementAd || null;
+    }
   });
 
   if (!ad) {
