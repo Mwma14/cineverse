@@ -144,7 +144,7 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
       <Header onMobileMenuChange={onMobileMenuChange} />
 
       {/* Hero Ad */}
-      <div className="container py-4">
+      <div className="container pb-4">
         <Advertisement placement="hero" />
       </div>
 
