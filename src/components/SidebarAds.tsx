@@ -8,14 +8,14 @@ export function SidebarAds() {
     queryKey: ["sidebarAd"],
     queryFn: async () => {
       // First, try to get desktop_sidebar ad
-      const { data: desktopAd, error: desktopError } = await supabase
-        .from("advertisements" as any)
-        .select("*")
-        .eq("is_active", true)
-        .eq("placement", "desktop_sidebar")
-        .order("display_order", { ascending: true })
-        .limit(1)
-        .maybeSingle();
+      const { data: desktopAd, error: desktopError } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("is_active", true).
+      eq("placement", "desktop_sidebar").
+      order("display_order", { ascending: true }).
+      limit(1).
+      maybeSingle();
 
       if (desktopError && desktopError.code !== 'PGRST116') {
         throw desktopError;
@@ -27,14 +27,14 @@ export function SidebarAds() {
       }
 
       // Otherwise, fallback to sidebar ad
-      const { data: sidebarAd, error: sidebarError } = await supabase
-        .from("advertisements" as any)
-        .select("*")
-        .eq("is_active", true)
-        .eq("placement", "sidebar")
-        .order("display_order", { ascending: true })
-        .limit(1)
-        .maybeSingle();
+      const { data: sidebarAd, error: sidebarError } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("is_active", true).
+      eq("placement", "sidebar").
+      order("display_order", { ascending: true }).
+      limit(1).
+      maybeSingle();
 
       if (sidebarError && sidebarError.code !== 'PGRST116') {
         throw sidebarError;
