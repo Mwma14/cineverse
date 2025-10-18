@@ -3,6 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { Advertisement } from "@/components/Advertisement";
+import { GenresSidebar } from "@/components/GenresSidebar";
+import { PopularSidebar } from "@/components/PopularSidebar";
+import { SidebarAds } from "@/components/SidebarAds";
 import { useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -148,10 +151,13 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
         <Advertisement placement="hero" />
       </div>
 
-      {/* Main Content */}
-      <section className="container py-12 space-y-12">
-        {searchQuery ?
-        <>
+      {/* Main Content with Sidebar */}
+      <section className="container py-12">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Main Content Area */}
+          <div className="flex-1 space-y-12">
+            {searchQuery ?
+            <>
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-2">
                 Search results for "{searchQuery}"
@@ -173,19 +179,197 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
 
               <TabsContent value="movies">
                 {isLoading ?
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                     {[...Array(20)].map((_, i) =>
-                <div key={i} className="animate-pulse">
+                    <div key={i} className="animate-pulse">
                         <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
                         <div className="h-4 bg-secondary rounded mb-2" />
                         <div className="h-3 bg-secondary rounded w-2/3" />
                       </div>
-                )}
+                    )}
                   </div> :
-              movies.length > 0 ?
-              <>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
+                  movies.length > 0 ?
+                  <>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                     {movies.map((video) =>
+                      <VideoCard
+                        key={video.id}
+                        id={video.id}
+                        title={video.title}
+                        year={video.year}
+                        rating={video.rating}
+                        genre={video.genre}
+                        posterUrl={video.poster_url} />
+
+                      )}
+                  </div>
+                  {renderPagination()}
+                </> :
+
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">No movies found</p>
+                  </div>
+                  }
+              </TabsContent>
+
+              <TabsContent value="series">
+                {isLoading ?
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {[...Array(20)].map((_, i) =>
+                    <div key={i} className="animate-pulse">
+                        <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
+                        <div className="h-4 bg-secondary rounded mb-2" />
+                        <div className="h-3 bg-secondary rounded w-2/3" />
+                      </div>
+                    )}
+                  </div> :
+                  series.length > 0 ?
+                  <>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {series.map((video) =>
+                      <VideoCard
+                        key={video.id}
+                        id={video.id}
+                        title={video.title}
+                        year={video.year}
+                        rating={video.rating}
+                        genre={video.genre}
+                        posterUrl={video.poster_url}
+                        isSeries={video.is_series}
+                        seasons={video.seasons} />
+
+                      )}
+                  </div>
+                  {renderPagination()}
+                </> :
+
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">No series found</p>
+                  </div>
+                  }
+              </TabsContent>
+            </Tabs>
+          </> :
+            filter === 'movies' ?
+            <>
+            {/* Movies Only View */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold flex items-center gap-2">
+                  <Film className="h-7 w-7 text-primary" />
+                  All Movies
+                </h2>
+              </div>
+              {isLoading ?
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                  {[...Array(20)].map((_, i) =>
+                  <div key={i} className="animate-pulse">
+                      <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
+                      <div className="h-4 bg-secondary rounded mb-2" />
+                      <div className="h-3 bg-secondary rounded w-2/3" />
+                    </div>
+                  )}
+                </div> :
+                allVideos.length > 0 ?
+                <>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                  {allVideos.map((video) =>
+                    <VideoCard
+                      key={video.id}
+                      id={video.id}
+                      title={video.title}
+                      year={video.year}
+                      rating={video.rating}
+                      genre={video.genre}
+                      posterUrl={video.poster_url} />
+
+                    )}
+                </div>
+                {renderPagination()}
+              </> :
+
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No movies available</p>
+                </div>
+                }
+            </div>
+          </> :
+            filter === 'series' ?
+            <>
+            {/* Series Only View */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold flex items-center gap-2">
+                  <Tv className="h-7 w-7 text-primary" />
+                  All Series
+                </h2>
+              </div>
+              {isLoading ?
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                  {[...Array(20)].map((_, i) =>
+                  <div key={i} className="animate-pulse">
+                      <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
+                      <div className="h-4 bg-secondary rounded mb-2" />
+                      <div className="h-3 bg-secondary rounded w-2/3" />
+                    </div>
+                  )}
+                </div> :
+                allVideos.length > 0 ?
+                <>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                  {allVideos.map((video) =>
+                    <VideoCard
+                      key={video.id}
+                      id={video.id}
+                      title={video.title}
+                      year={video.year}
+                      rating={video.rating}
+                      genre={video.genre}
+                      posterUrl={video.poster_url}
+                      isSeries={video.is_series}
+                      seasons={video.seasons} />
+
+                    )}
+                </div>
+                {renderPagination()}
+              </> :
+
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No series available</p>
+                </div>
+                }
+            </div>
+          </> :
+
+            <>
+            {/* Sidebar Ad */}
+            <Advertisement placement="sidebar" />
+
+            {/* Trending Movies */}
+            {trendingMovies.length > 0 &&
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold flex items-center gap-2">
+                    <TrendingUp className="h-7 w-7 text-primary" />
+                    Trending Movies
+                  </h2>
+                  <Button asChild variant="ghost">
+                    <Link to="/?filter=movies">View All</Link>
+                  </Button>
+                </div>
+                {isLoading ?
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {[...Array(5)].map((_, i) =>
+                  <div key={i} className="animate-pulse">
+                        <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
+                        <div className="h-4 bg-secondary rounded mb-2" />
+                        <div className="h-3 bg-secondary rounded w-2/3" />
+                      </div>
+                  )}
+                  </div> :
+
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {trendingMovies.map((video) =>
                   <VideoCard
                     key={video.id}
                     id={video.id}
@@ -197,30 +381,42 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
 
                   )}
                   </div>
-                  {renderPagination()}
-                </> :
-
-              <div className="text-center py-12">
-                    <p className="text-muted-foreground">No movies found</p>
-                  </div>
+                }
+              </div>
               }
-              </TabsContent>
 
-              <TabsContent value="series">
+            {/* Ad After Trending Movies */}
+            {trendingMovies.length > 0 &&
+              <div className="py-4">
+                <Advertisement placement="after-trending-movies" />
+              </div>
+              }
+
+            {/* Trending Series */}
+            {trendingSeries.length > 0 &&
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold flex items-center gap-2">
+                    <TrendingUp className="h-7 w-7 text-primary" />
+                    Trending Series
+                  </h2>
+                  <Button asChild variant="ghost">
+                    <Link to="/?filter=series">View All</Link>
+                  </Button>
+                </div>
                 {isLoading ?
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                    {[...Array(20)].map((_, i) =>
-                <div key={i} className="animate-pulse">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {[...Array(5)].map((_, i) =>
+                  <div key={i} className="animate-pulse">
                         <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
                         <div className="h-4 bg-secondary rounded mb-2" />
                         <div className="h-3 bg-secondary rounded w-2/3" />
                       </div>
-                )}
+                  )}
                   </div> :
-              series.length > 0 ?
-              <>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                    {series.map((video) =>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                    {trendingSeries.map((video) =>
                   <VideoCard
                     key={video.id}
                     id={video.id}
@@ -234,206 +430,16 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
 
                   )}
                   </div>
-                  {renderPagination()}
-                </> :
-
-              <div className="text-center py-12">
-                    <p className="text-muted-foreground">No series found</p>
-                  </div>
+                }
+              </div>
               }
-              </TabsContent>
-            </Tabs>
-          </> :
-        filter === 'movies' ?
-        <>
-            {/* Movies Only View */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-bold flex items-center gap-2">
-                  <Film className="h-7 w-7 text-primary" />
-                  All Movies
-                </h2>
-              </div>
-              {isLoading ?
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                  {[...Array(20)].map((_, i) =>
-              <div key={i} className="animate-pulse">
-                      <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
-                      <div className="h-4 bg-secondary rounded mb-2" />
-                      <div className="h-3 bg-secondary rounded w-2/3" />
-                    </div>
-              )}
-                </div> :
-            allVideos.length > 0 ?
-            <>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                  {allVideos.map((video) =>
-                <VideoCard
-                  key={video.id}
-                  id={video.id}
-                  title={video.title}
-                  year={video.year}
-                  rating={video.rating}
-                  genre={video.genre}
-                  posterUrl={video.poster_url} />
-
-                )}
-                </div>
-                {renderPagination()}
-              </> :
-
-            <div className="text-center py-12">
-                  <p className="text-muted-foreground">No movies available</p>
-                </div>
-            }
-            </div>
-          </> :
-        filter === 'series' ?
-        <>
-            {/* Series Only View */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-bold flex items-center gap-2">
-                  <Tv className="h-7 w-7 text-primary" />
-                  All Series
-                </h2>
-              </div>
-              {isLoading ?
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                  {[...Array(20)].map((_, i) =>
-              <div key={i} className="animate-pulse">
-                      <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
-                      <div className="h-4 bg-secondary rounded mb-2" />
-                      <div className="h-3 bg-secondary rounded w-2/3" />
-                    </div>
-              )}
-                </div> :
-            allVideos.length > 0 ?
-            <>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
-                  {allVideos.map((video) =>
-                <VideoCard
-                  key={video.id}
-                  id={video.id}
-                  title={video.title}
-                  year={video.year}
-                  rating={video.rating}
-                  genre={video.genre}
-                  posterUrl={video.poster_url}
-                  isSeries={video.is_series}
-                  seasons={video.seasons} />
-
-                )}
-                </div>
-                {renderPagination()}
-              </> :
-
-            <div className="text-center py-12">
-                  <p className="text-muted-foreground">No series available</p>
-                </div>
-            }
-            </div>
-          </> :
-
-        <>
-            {/* Sidebar Ad */}
-            <Advertisement placement="sidebar" />
-
-            {/* Trending Movies */}
-            {trendingMovies.length > 0 &&
-          <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold flex items-center gap-2">
-                    <TrendingUp className="h-7 w-7 text-primary" />
-                    Trending Movies
-                  </h2>
-                  <Button asChild variant="ghost">
-                    <Link to="/?filter=movies">View All</Link>
-                  </Button>
-                </div>
-                {isLoading ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
-                    {[...Array(5)].map((_, i) =>
-              <div key={i} className="animate-pulse">
-                        <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
-                        <div className="h-4 bg-secondary rounded mb-2" />
-                        <div className="h-3 bg-secondary rounded w-2/3" />
-                      </div>
-              )}
-                  </div> :
-
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
-                    {trendingMovies.map((video) =>
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                year={video.year}
-                rating={video.rating}
-                genre={video.genre}
-                posterUrl={video.poster_url} />
-
-              )}
-                  </div>
-            }
-              </div>
-          }
-
-            {/* Ad After Trending Movies */}
-            {trendingMovies.length > 0 &&
-          <div className="py-4">
-                <Advertisement placement="after-trending-movies" />
-              </div>
-          }
-
-            {/* Trending Series */}
-            {trendingSeries.length > 0 &&
-          <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold flex items-center gap-2">
-                    <TrendingUp className="h-7 w-7 text-primary" />
-                    Trending Series
-                  </h2>
-                  <Button asChild variant="ghost">
-                    <Link to="/?filter=series">View All</Link>
-                  </Button>
-                </div>
-                {isLoading ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
-                    {[...Array(5)].map((_, i) =>
-              <div key={i} className="animate-pulse">
-                        <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
-                        <div className="h-4 bg-secondary rounded mb-2" />
-                        <div className="h-3 bg-secondary rounded w-2/3" />
-                      </div>
-              )}
-                  </div> :
-
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
-                    {trendingSeries.map((video) =>
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                year={video.year}
-                rating={video.rating}
-                genre={video.genre}
-                posterUrl={video.poster_url}
-                isSeries={video.is_series}
-                seasons={video.seasons} />
-
-              )}
-                  </div>
-            }
-              </div>
-          }
 
             {/* Ad After Trending Series */}
             {trendingSeries.length > 0 &&
-          <div className="py-4">
+              <div className="py-4">
                 <Advertisement placement="after-trending-series" />
               </div>
-          }
+              }
 
             {/* All Movies Section */}
             <div>
@@ -447,34 +453,34 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
                 </Button>
               </div>
               {isLoading ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                   {[...Array(10)].map((_, i) =>
-              <div key={i} className="animate-pulse">
+                  <div key={i} className="animate-pulse">
                       <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
                       <div className="h-4 bg-secondary rounded mb-2" />
                       <div className="h-3 bg-secondary rounded w-2/3" />
                     </div>
-              )}
+                  )}
                 </div> :
-            movies.length > 0 ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
+                movies.length > 0 ?
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                   {movies.slice(0, 10).map((video) =>
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                year={video.year}
-                rating={video.rating}
-                genre={video.genre}
-                posterUrl={video.poster_url} />
+                  <VideoCard
+                    key={video.id}
+                    id={video.id}
+                    title={video.title}
+                    year={video.year}
+                    rating={video.rating}
+                    genre={video.genre}
+                    posterUrl={video.poster_url} />
 
-              )}
+                  )}
                 </div> :
 
-            <div className="text-center py-12">
+                <div className="text-center py-12">
                   <p className="text-muted-foreground">No movies available</p>
                 </div>
-            }
+                }
             </div>
 
             {/* Ad After Movies */}
@@ -494,44 +500,53 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
                 </Button>
               </div>
               {isLoading ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                   {[...Array(10)].map((_, i) =>
-              <div key={i} className="animate-pulse">
+                  <div key={i} className="animate-pulse">
                       <div className="aspect-[2/3] bg-secondary rounded-lg mb-4" />
                       <div className="h-4 bg-secondary rounded mb-2" />
                       <div className="h-3 bg-secondary rounded w-2/3" />
                     </div>
-              )}
+                  )}
                 </div> :
-            series.length > 0 ?
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
+                series.length > 0 ?
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
                   {series.slice(0, 10).map((video) =>
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                year={video.year}
-                rating={video.rating}
-                genre={video.genre}
-                posterUrl={video.poster_url}
-                isSeries={video.is_series}
-                seasons={video.seasons} />
+                  <VideoCard
+                    key={video.id}
+                    id={video.id}
+                    title={video.title}
+                    year={video.year}
+                    rating={video.rating}
+                    genre={video.genre}
+                    posterUrl={video.poster_url}
+                    isSeries={video.is_series}
+                    seasons={video.seasons} />
 
-              )}
+                  )}
                 </div> :
 
-            <div className="text-center py-12">
+                <div className="text-center py-12">
                   <p className="text-muted-foreground">No series available</p>
                 </div>
-            }
+                }
             </div>
 
-            {/* Ad After Series */}
+                {/* Ad After Series */}
             <div className="py-4">
               <Advertisement placement="after-series" />
             </div>
           </>
-        }
+            }
+          </div>
+
+          {/* Desktop Sidebar - Only visible on large screens */}
+          <aside className="hidden lg:block lg:w-80 xl:w-96 space-y-6 flex-shrink-0">
+            <GenresSidebar />
+            <SidebarAds />
+            <PopularSidebar />
+          </aside>
+        </div>
       </section>
 
       {/* Bottom spacing for sticky ad */}

@@ -29,6 +29,7 @@ export default function Admin() {
   const [isAdDialogOpen, setIsAdDialogOpen] = useState(false);
   const [editingAd, setEditingAd] = useState<any>(null);
 
+
   const { data: session } = useQuery({
     queryKey: ["session"],
     queryFn: async () => {
@@ -69,6 +70,8 @@ export default function Admin() {
     }
   });
 
+
+
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("videos").delete().eq("id", id);
@@ -97,6 +100,8 @@ export default function Admin() {
       toast.error("Failed to delete advertisement");
     }
   });
+
+
 
   if (!session) {
     navigate("/auth");
@@ -276,6 +281,8 @@ export default function Admin() {
               )}
             </div>
           </TabsContent>
+
+
         </Tabs>
       </div>
     </div>);

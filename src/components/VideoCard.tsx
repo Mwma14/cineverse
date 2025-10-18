@@ -25,8 +25,8 @@ export const VideoCard = ({
   seasons
 }: VideoCardProps) => {
   return (
-    <Link to={`/video/${id}`}>
-      <Card className="group overflow-hidden border-0 bg-card/50 backdrop-blur-sm card-hover cursor-pointer">
+    <Link to={`/video/${id}`} className="block w-full">
+      <Card className="group overflow-hidden border-0 bg-card/50 backdrop-blur-sm card-hover cursor-pointer h-full">
         <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
           {posterUrl ?
           <img
