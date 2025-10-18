@@ -8,13 +8,13 @@ export function StickyAd() {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", "sticky"],
     queryFn: async () => {
-      const { data, error } = await supabase.
-      from("advertisements" as any).
-      select("*").
-      eq("placement", "sticky").
-      eq("is_active", true).
-      order("display_order", { ascending: true }).
-      limit(1);
+      const { data, error } = await supabase
+      .from("advertisements" as any)
+      .select("*")
+      .eq("placement", "sticky")
+      .eq("is_active", true)
+      .order("display_order", { ascending: true })
+      .limit(1);
 
       if (error) throw error;
       return data;
@@ -50,14 +50,14 @@ export function StickyAd() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] animate-in slide-in-from-bottom duration-500 px-4 md:px-6 pb-2">
+    <div className="fixed bottom-0 left-0 right-0 z-[100] animate-in slide-in-from-bottom duration-500">
       <div className="relative mx-auto max-w-7xl">
         {/* Animated border glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse opacity-75 rounded-lg"></div>
         
         {/* Main container with gradient background */}
         <div className="relative bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 border-t-4 border-yellow-400 shadow-[0_-4px_20px_rgba(236,72,153,0.5)] rounded-lg">
-          <div className="relative py-2 px-3 md:py-3 md:px-4">
+          <div className="relative">
             {/* Ad content with shimmer effect */}
             <a
               href={ad.target_url}

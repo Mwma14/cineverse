@@ -11,13 +11,13 @@ export function Advertisement({ placement }: AdvertisementProps) {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", placement],
     queryFn: async () => {
-      const { data, error } = await supabase.
-      from("advertisements" as any).
-      select("*").
-      eq("placement", placement).
-      eq("is_active", true).
-      order("display_order", { ascending: true }).
-      limit(1);
+      const { data, error } = await supabase
+      .from("advertisements" as any)
+      .select("*")
+      .eq("placement", placement)
+      .eq("is_active", true)
+      .order("display_order", { ascending: true })
+      .limit(1);
 
       if (error) throw error;
       return data;
@@ -49,7 +49,7 @@ export function Advertisement({ placement }: AdvertisementProps) {
   }
 
   return (
-    <div className="w-full px-4 md:px-6">
+    <div className="w-full">
       <a
         href={ad.target_url}
         target="_blank"
@@ -63,7 +63,7 @@ export function Advertisement({ placement }: AdvertisementProps) {
           loop
           muted
           playsInline
-          className="w-full h-auto"
+          className="w-full h-auto object-cover"
           preload="auto">
 
             Your browser does not support the video tag.
@@ -72,7 +72,7 @@ export function Advertisement({ placement }: AdvertisementProps) {
         <img
           src={ad.image_url}
           alt={ad.title}
-          className="w-full h-auto" />
+          className="w-full h-auto object-cover" />
 
         }
       </a>
