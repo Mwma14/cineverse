@@ -53,7 +53,7 @@ export function StickyAd() {
     <div className="fixed bottom-0 left-0 right-0 z-[100] animate-in slide-in-from-bottom duration-500 px-4 md:px-6">
       <div className="relative mx-auto max-w-7xl">
         {/* Animated border glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse opacity-75 rounded-lg"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse opacity-75 rounded-t-lg"></div>
         
         {/* Main container with gradient background */}
         <div className="relative bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 shadow-[0_-4px_20px_rgba(236,72,153,0.5)] rounded-t-lg">
@@ -63,15 +63,15 @@ export function StickyAd() {
               href={ad.target_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block relative overflow-hidden rounded-lg group">
+              className="block relative overflow-hidden rounded-t-lg group">
               {/* Shimmer overlay */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent z-10"></div>
               
               {/* Border animation */}
-              <div className="absolute inset-0 rounded-lg border-2 border-white/50 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-t-lg border-2 border-white/50 animate-pulse"></div>
               
               {/* Media content */}
-              <div className="relative bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden">
+              <div className="relative bg-white/10 backdrop-blur-sm rounded-t-lg overflow-hidden">
                 {ad.media_type === 'video' ?
                 <video
                   src={ad.image_url}
@@ -79,14 +79,14 @@ export function StickyAd() {
                   loop
                   muted
                   playsInline
-                  className="w-full h-24 md:h-28 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-24 md:h-28 object-cover transition-transform duration-300 group-hover:scale-105"
                   preload="auto">
                     Your browser does not support the video tag.
                   </video> :
                 <img
                   src={ad.image_url}
                   alt={ad.title}
-                  className="w-full h-24 md:h-28 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
+                  className="w-full h-24 md:h-28 object-cover transition-transform duration-300 group-hover:scale-105" />
                 }
                 
                 {/* Overlay text if title exists */}
@@ -101,9 +101,6 @@ export function StickyAd() {
             </a>
           </div>
         </div>
-        
-        {/* Bottom glow effect */}
-        <div className="absolute -bottom-2 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 blur-sm rounded-b-lg"></div>
       </div>
     </div>);
 
