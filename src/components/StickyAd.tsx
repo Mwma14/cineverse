@@ -8,13 +8,13 @@ export function StickyAd() {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", "sticky"],
     queryFn: async () => {
-      const { data, error } = await supabase
-      .from("advertisements" as any)
-      .select("*")
-      .eq("placement", "sticky")
-      .eq("is_active", true)
-      .order("display_order", { ascending: true })
-      .limit(1);
+      const { data, error } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("placement", "sticky").
+      eq("is_active", true).
+      order("display_order", { ascending: true }).
+      limit(1);
 
       if (error) throw error;
       return data;
@@ -50,7 +50,7 @@ export function StickyAd() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] animate-in slide-in-from-bottom duration-500">
+    <div className="fixed bottom-0 left-0 right-0 z-[100] animate-in slide-in-from-bottom duration-500 px-4 md:px-6">
       <div className="relative mx-auto max-w-7xl">
         {/* Animated border glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse opacity-75 rounded-lg"></div>

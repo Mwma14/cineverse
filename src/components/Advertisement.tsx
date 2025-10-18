@@ -11,13 +11,13 @@ export function Advertisement({ placement }: AdvertisementProps) {
   const { data: ads } = useQuery({
     queryKey: ["advertisements", placement],
     queryFn: async () => {
-      const { data, error } = await supabase
-      .from("advertisements" as any)
-      .select("*")
-      .eq("placement", placement)
-      .eq("is_active", true)
-      .order("display_order", { ascending: true })
-      .limit(1);
+      const { data, error } = await supabase.
+      from("advertisements" as any).
+      select("*").
+      eq("placement", placement).
+      eq("is_active", true).
+      order("display_order", { ascending: true }).
+      limit(1);
 
       if (error) throw error;
       return data;
@@ -49,7 +49,7 @@ export function Advertisement({ placement }: AdvertisementProps) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full px-4 md:px-6">
       <a
         href={ad.target_url}
         target="_blank"
