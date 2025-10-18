@@ -103,9 +103,9 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
           </>
         }
 
-        <div className="container relative h-full flex flex-col items-center justify-end md:flex-row md:items-end pb-8 md:pb-12 px-4">
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-end w-full md:w-auto">
-            <div className="flex-1 pb-4 text-center md:text-left w-full order-2 md:order-1">
+        <div className="container relative h-full flex flex-col items-start justify-end md:flex-row md:items-end pb-8 md:pb-12 px-4">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-end w-full md:w-auto">
+            <div className="flex-1 pb-4 text-left w-full order-2 md:order-1">
               <Link to="/" className="inline-block">
                 <Button variant="ghost" size="sm" className="mb-4">
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -115,7 +115,7 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
 
               <h1 className="text-3xl md:text-5xl font-bold mb-4">{video.title}</h1>
 
-              <div className="flex flex-wrap items-center gap-4 mb-4 justify-center md:justify-start">
+              <div className="flex flex-wrap items-center gap-4 mb-4 justify-start">
                 {video.rating &&
                 <div className="flex items-center space-x-1">
                     <Star className="h-5 w-5 fill-gold text-gold" />
@@ -138,7 +138,7 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
                 }
               </div>
 
-              <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+              <div className="flex flex-wrap gap-2 mb-4 justify-start">
                 {video.genre.split(",").map((g) =>
                 <Badge key={g.trim()} variant="outline">
                     {g.trim()}
