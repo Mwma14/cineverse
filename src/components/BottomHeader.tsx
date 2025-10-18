@@ -25,7 +25,7 @@ export function BottomHeader() {
   // If no ad, show fallback placeholder
   if (!ad) {
     return (
-      <div className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 py-3 shadow-lg border-b-2 border-border">
+      <div className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 py-3 shadow-lg border-b-2 border-border mx-4 sm:mx-6 lg:mx-8">
         <div className="container relative px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
           <div className="text-center max-w-md mx-auto">
             <p className="text-white/90 mb-3 text-sm md:text-base font-medium">
@@ -49,7 +49,7 @@ export function BottomHeader() {
   }
 
   return (
-    <div className="w-full bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-lg border-b-2 border-primary/20">
+    <div className="w-full bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-lg border-b-2 border-primary/20 mx-4 sm:mx-6 lg:mx-8">
       <div className="container relative py-1 md:py-2 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
         <a
           href={ad.target_url}
