@@ -3,7 +3,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { Advertisement } from "@/components/Advertisement";
-import { DesktopSidebar } from "@/components/DesktopSidebar";
 import { useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -534,9 +533,7 @@ const Index = ({ onMobileMenuChange }: IndexProps = {}) => {
           </>
         }
       </section>
-        
-      <DesktopSidebar />
-      
+
       {/* Bottom spacing for sticky ad */}
       <div className="h-24" />
     </div>);
