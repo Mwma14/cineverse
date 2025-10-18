@@ -29,49 +29,53 @@ export function Advertisement({ placement }: AdvertisementProps) {
   if (!ad) {
     // Fallback placeholder
     return (
-      <div className="w-full bg-secondary/50 rounded-lg p-8 text-center border-2 border-dashed border-border">
-        <p className="text-muted-foreground mb-4">Advertisement Space</p>
-        <Button asChild variant="outline">
-          <a
-            href="https://t.me/ceo_metaverse"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2">
+      <div className="w-full px-4 md:px-6">
+        <div className="bg-secondary/50 rounded-lg p-8 text-center border-2 border-dashed border-border">
+          <p className="text-muted-foreground mb-4">Advertisement Space</p>
+          <Button asChild variant="outline">
+            <a
+              href="https://t.me/ceo_metaverse"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2">
 
-            <ExternalLink className="h-4 w-4" />
-            Advertise with us
-          </a>
-        </Button>
+              <ExternalLink className="h-4 w-4" />
+              Advertise with us
+            </a>
+          </Button>
+        </div>
       </div>);
 
   }
 
   return (
-    <a
-      href={ad.target_url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block w-full rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
+    <div className="w-full px-4 md:px-6">
+      <a
+        href={ad.target_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
 
-      {ad.media_type === 'video' ?
-      <video
-        src={ad.image_url}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full h-auto"
-        preload="auto">
+        {ad.media_type === 'video' ?
+        <video
+          src={ad.image_url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-auto"
+          preload="auto">
 
-          Your browser does not support the video tag.
-        </video> :
+            Your browser does not support the video tag.
+          </video> :
 
-      <img
-        src={ad.image_url}
-        alt={ad.title}
-        className="w-full h-auto" />
+        <img
+          src={ad.image_url}
+          alt={ad.title}
+          className="w-full h-auto" />
 
-      }
-    </a>);
+        }
+      </a>
+    </div>);
 
 }
