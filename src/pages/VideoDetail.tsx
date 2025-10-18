@@ -105,14 +105,6 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
 
         <div className="container relative h-full flex flex-col items-start justify-end md:flex-row md:items-end pb-8 md:pb-12 px-4">
           <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-end w-full md:w-auto">
-            {video.poster_url &&
-            <img
-              src={video.poster_url}
-              alt={video.title}
-              className="w-56 md:w-64 rounded-lg shadow-2xl glow flex-shrink-0" />
-
-            }
-
             <div className="flex-1 pb-4 text-left w-full">
               <Link to="/" className="inline-block">
                 <Button variant="ghost" size="sm" className="mb-4">
@@ -166,6 +158,14 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
                 </p>
               }
             </div>
+
+            {video.poster_url &&
+            <img
+              src={video.poster_url}
+              alt={video.title}
+              className="w-56 md:w-64 rounded-lg shadow-2xl glow flex-shrink-0" />
+
+            }
           </div>
         </div>
       </div>
