@@ -105,15 +105,7 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
 
         <div className="container relative h-full flex flex-col items-center justify-end md:flex-row md:items-end pb-8 md:pb-12 px-4">
           <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-end w-full md:w-auto">
-            {video.poster_url &&
-            <img
-              src={video.poster_url}
-              alt={video.title}
-              className="w-56 md:w-64 rounded-lg shadow-2xl glow flex-shrink-0" />
-
-            }
-
-            <div className="flex-1 pb-4 text-center md:text-left w-full">
+            <div className="flex-1 pb-4 text-center md:text-left w-full order-2 md:order-1">
               <Link to="/" className="inline-block">
                 <Button variant="ghost" size="sm" className="mb-4">
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -123,7 +115,7 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
 
               <h1 className="text-3xl md:text-5xl font-bold mb-4">{video.title}</h1>
 
-              <div className="flex flex-wrap items-center gap-4 mb-4">
+              <div className="flex flex-wrap items-center gap-4 mb-4 justify-center md:justify-start">
                 {video.rating &&
                 <div className="flex items-center space-x-1">
                     <Star className="h-5 w-5 fill-gold text-gold" />
@@ -146,7 +138,7 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
                 }
               </div>
 
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
                 {video.genre.split(",").map((g) =>
                 <Badge key={g.trim()} variant="outline">
                     {g.trim()}
@@ -166,6 +158,14 @@ export default function VideoDetail({ onMobileMenuChange }: VideoDetailProps = {
                 </p>
               }
             </div>
+
+            {video.poster_url &&
+            <img
+              src={video.poster_url}
+              alt={video.title}
+              className="w-56 md:w-64 rounded-lg shadow-2xl glow flex-shrink-0 order-1 md:order-2" />
+
+            }
           </div>
         </div>
       </div>
