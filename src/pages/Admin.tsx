@@ -94,6 +94,7 @@ export default function Admin() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminAdvertisements"] });
       queryClient.invalidateQueries({ queryKey: ["advertisements"] });
+      queryClient.invalidateQueries({ queryKey: ["sidebarAd"] });
       toast.success("Advertisement deleted successfully");
     },
     onError: () => {
@@ -610,6 +611,7 @@ function AdForm({ ad, onClose }: {ad?: any;onClose: () => void;}) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminAdvertisements"] });
       queryClient.invalidateQueries({ queryKey: ["advertisements"] });
+      queryClient.invalidateQueries({ queryKey: ["sidebarAd"] });
       toast.success(ad ? "Advertisement updated!" : "Advertisement added!");
       onClose();
     },
