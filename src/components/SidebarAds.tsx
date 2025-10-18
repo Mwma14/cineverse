@@ -7,18 +7,6 @@ export function SidebarAds() {
   const { data: ad } = useQuery({
     queryKey: ["sidebarAd"],
     queryFn: async () => {
-      // First try to get from sidebar_ads table (Desktop Sidebar Ads section)
-      const { data: sidebarAd, error: sidebarError } = await supabase.
-      from("sidebar_ads" as any).
-      select("*").
-      eq("is_active", true).
-      order("display_order", { ascending: true }).
-      limit(1).
-      single();
-
-      if (sidebarAd) return sidebarAd;
-
-      // If no sidebar_ads, try advertisements table with placement="sidebar"
       const { data: advertisementAd, error: adError } = await supabase.
       from("advertisements" as any).
       select("*").
