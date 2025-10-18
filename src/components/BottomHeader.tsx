@@ -66,7 +66,7 @@ export function BottomHeader() {
               loop
               muted
               playsInline
-              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
               preload="auto">
 
                 Your browser does not support the video tag.
@@ -75,7 +75,7 @@ export function BottomHeader() {
             <img
               src={ad.image_url}
               alt={ad.title || "Advertisement"}
-              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105" />
+              className="w-full h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg" />
 
             }
           </div>
