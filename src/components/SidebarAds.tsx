@@ -33,7 +33,10 @@ export function SidebarAds() {
       }
 
       return advertisementAd || null;
-    }
+    },
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true
   });
 
   if (!ad) {
